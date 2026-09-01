@@ -92,7 +92,7 @@ const included = [
   { title: "Built in React", body: "Modern and fast under the hood — not another WordPress install held together by plugins." },
   { title: "Fully responsive", body: "Checked and adjusted on phone, tablet, and desktop before anything goes live." },
   { title: "WhatsApp-first contact", body: "Every enquiry lands straight in your WhatsApp — not a form buried in an inbox nobody checks." },
-  { title: "Delivered in 3–5 days", body: "From brief to live site, without months of back-and-forth or missed deadlines." },
+  { title: "Delivered in 3–10 days", body: "From brief to live site, without months of back-and-forth or missed deadlines." },
   { title: "One revision round included", body: "Built into the price, so the first version you see is never the last word." },
 ];
 
@@ -100,14 +100,59 @@ const process = [
   { title: "Tell us what you need", body: "Message us on WhatsApp with what your business does and what the site needs to cover." },
   { title: "We design & build", body: "Your site gets built in React around your brief — not assembled from a recycled template." },
   { title: "One round of revisions", body: "We adjust based on your feedback before anything goes live." },
-  { title: "Live in 3–5 days", body: "Your new site goes live and ready for visitors, start to finish." },
+  { title: "Live in 3–10 days", body: "Your new site goes live and ready for visitors, start to finish." },
+];
+
+const pricingPlans = [
+  {
+    name: "Starter",
+    price: "1,499",
+    pages: "Up to 3 pages",
+    features: [
+      "Up to 3 custom-designed pages",
+      "Fully responsive on every device",
+      "WhatsApp enquiry built into every page",
+      "One round of revisions included",
+      "Delivered in 3–5 business days",
+    ],
+  },
+  {
+    name: "Growth",
+    price: "2,499",
+    pages: "Up to 8 pages",
+    featured: true,
+    features: [
+      "Up to 8 custom-designed pages, built in React",
+      "Fully responsive on every device",
+      "WhatsApp enquiry built into every page",
+      "One round of revisions included",
+      "Delivered in 5–8 business days",
+    ],
+  },
+  {
+    name: "Business",
+    price: "2,999",
+    pages: "Up to 12 pages",
+    features: [
+      "Up to 12 custom-designed pages, built in React",
+      "Fully responsive on every device",
+      "WhatsApp enquiry built into every page",
+      "One round of revisions included",
+      "Delivered in 7–10 business days",
+    ],
+  },
+];
+
+const addOns = [
+  { label: "Extra page beyond your plan", price: "AED 300 / page" },
+  { label: "Ongoing maintenance & support", price: "AED 200 / hour" },
 ];
 
 const faqs = [
   { q: "Do I own the website once it's built?", a: "Yes. Once the project is paid in full, the complete codebase is yours. We can transfer the repository and hosting project directly to your own accounts." },
   { q: "What about hosting and a domain?", a: "Domain and hosting are arranged directly by you and kept separate from the build price. We'll guide you through deployment once your site is ready." },
-  { q: "What if I need more than 4 pages?", a: "Message us with what you need. Larger sites, online stores, and booking systems are scoped and quoted individually." },
-  { q: "How do changes after launch work?", a: "Post-launch updates are billed hourly rather than a fixed monthly fee, so you only pay for the work you actually need." },
+  { q: "What if I need more pages than my plan covers?", a: "Extra pages beyond your plan's limit are billed at AED 300 per page. Need something much larger — an online store or a booking system? Message us for a custom quote." },
+  { q: "How do changes after launch work?", a: "Post-launch updates and ongoing maintenance are billed at AED 200 per hour rather than a fixed monthly fee, so you only pay for the work you actually need." },
   { q: "How is this different from a WordPress site?", a: "Your site is hand-built in React rather than assembled from templates and plugins — which means it loads faster, carries no plugin security risk, and doesn't break with every update." },
 ];
 
@@ -204,11 +249,11 @@ export default function App() {
               <div className="hero-cta-row">
                 <WhatsappButton />
                 <div className="price-pill">
-                  Starting at <b>AED 2,499</b>
+                  Starting at <b>AED 1,499</b>
                 </div>
               </div>
               <div className="hero-meta">
-                <div className="hero-meta-item"><b>3&ndash;5 days</b>Turnaround</div>
+                <div className="hero-meta-item"><b>3&ndash;10 days</b>Turnaround</div>
                 <div className="hero-meta-item"><b>React</b>Hand-built, not templated</div>
                 <div className="hero-meta-item"><b>1 revision</b>Included in the price</div>
               </div>
@@ -324,29 +369,38 @@ export default function App() {
           <div className="wrap">
             <div className="section-head">
               <h2>Pricing</h2>
-              <p>One straightforward price for a 1&ndash;4 page site.</p>
+              <p>Three straightforward packages, priced by page count.</p>
             </div>
-            <div className="pricing-box">
-              <div>
-                <div className="pricing-amount">AED 2,499 <span>/ project</span></div>
-                <ul className="pricing-list">
-                  <li><CheckIcon /> Up to 4 custom-designed pages</li>
-                  <li><CheckIcon /> Fully responsive on every device</li>
-                  <li><CheckIcon /> WhatsApp enquiry built into every page</li>
-                  <li><CheckIcon /> One round of revisions included</li>
-                  <li><CheckIcon /> Delivered in 3&ndash;5 business days</li>
-                </ul>
-                <p className="pricing-note">
-                  Domain and hosting are arranged directly by you at
-                  deployment, kept separate from this price. Need more
-                  pages, an online store, or a booking system? Message us
-                  for a custom quote.
-                </p>
-              </div>
-              <div className="pricing-cta">
-                <WhatsappButton>Get started on WhatsApp</WhatsappButton>
-              </div>
+            <div className="pricing-grid">
+              {pricingPlans.map((plan) => (
+                <div className={`pricing-card${plan.featured ? " featured" : ""}`} key={plan.name}>
+                  {plan.featured && <span className="pricing-badge">Most popular</span>}
+                  <h3 className="pricing-plan-name">{plan.name}</h3>
+                  <div className="pricing-amount">AED {plan.price} <span>/ project</span></div>
+                  <div className="pricing-pages">{plan.pages}</div>
+                  <ul className="pricing-list">
+                    {plan.features.map((f) => (
+                      <li key={f}><CheckIcon /> {f}</li>
+                    ))}
+                  </ul>
+                  <WhatsappButton>Get started on WhatsApp</WhatsappButton>
+                </div>
+              ))}
             </div>
+            <div className="pricing-addons">
+              {addOns.map((a) => (
+                <div className="pricing-addon" key={a.label}>
+                  <span>{a.label}</span>
+                  <b>{a.price}</b>
+                </div>
+              ))}
+            </div>
+            <p className="pricing-note">
+              Domain and hosting are arranged directly by you at deployment,
+              kept separate from these prices. Need something much larger —
+              an online store or a booking system? Message us for a custom
+              quote.
+            </p>
           </div>
         </section>
 
@@ -372,7 +426,7 @@ export default function App() {
             <p>Message us on WhatsApp and we'll get started today.</p>
             <div className="hero-cta-row">
               <WhatsappButton />
-              <div className="price-pill">Starting at <b>AED 2,499</b></div>
+              <div className="price-pill">Starting at <b>AED 1,499</b></div>
             </div>
           </div>
         </div>

@@ -318,9 +318,9 @@ h1, h2, h3, h4 {
 .hero-word.outline {
   color: transparent; -webkit-text-stroke: 1.5px var(--ink); text-stroke: 1.5px var(--ink);
 }
-.hero-carousel { position: relative; height: 1.3em; overflow: hidden; margin-top: 0.05em; }
+.hero-carousel { position: relative; height: 2.3em; overflow: hidden; margin-top: 0.05em; }
 .hero-carousel-phrase {
-  position: absolute; left: 0; top: 0; white-space: nowrap;
+  position: absolute; left: 0; top: 0; width: 100%; white-space: normal;
   color: transparent; -webkit-text-stroke: 1.5px var(--ink); text-stroke: 1.5px var(--ink);
   opacity: 0; transform: translateY(100%);
   animation: heroCarousel 12s infinite;
